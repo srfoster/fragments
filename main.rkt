@@ -8,12 +8,15 @@
 (require web-server/servlet
          web-server/servlet-env
          json
-         simple-http)
+         simple-http
+         racket/runtime-path)
+
+(define-runtime-path here ".")
 
 (define (launch)
   (thread
     (thunk
-      (system "./UnityClient.app/Contents/MacOS/UnityClient"))))
+      (system (~a (build-path here "UnityClient.app" "Contents" "MacOS" "UnityClient"))))))
 
 
 (define (serve . entities)
