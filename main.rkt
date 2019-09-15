@@ -13,10 +13,25 @@
 
 (define-runtime-path here ".")
 
+(define mac-path
+  (build-path here "clients" "UnityClient.app" "Contents" "MacOS" "UnityClient"))
+
+(define linux-path
+  (build-path here "clients" "LinuxClient.x86_64"))
+
+(define windows-path
+  (build-path here "clients" "Windows" "CodeSpellsFragments.exe"))
+
 (define (launch)
   (thread
     (thunk
-      (system (~a (build-path here "UnityClient.app" "Contents" "MacOS" "UnityClient"))))))
+      (system 
+        (cond
+          [(eq? 'macosx (system-type)) (~a mac-path)]
+          [(eq? 'unix (system-type)) (~a linux-path)]
+          [(eq? 'windows (system-type)) (~a windows-path)]
+          [else (error (~a "Unsupported OS: " (system-type)))]
+          )))))
 
 
 (define (serve . entities)
