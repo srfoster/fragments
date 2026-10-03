@@ -1,6 +1,7 @@
 #lang info
 (define collection "fragments")
-(define deps '("base" "simple-http"))
+(define deps '("web-server-lib"
+               "base" "simple-http"))
 (define build-deps '("scribble-lib" "racket-doc" "rackunit-lib"))
 (define scribblings '(("scribblings/fragments.scrbl" ())))
 (define pkg-desc "Description Here")
